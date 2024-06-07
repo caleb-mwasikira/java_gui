@@ -1,24 +1,19 @@
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame frame = new MyJFrame("Closing frame with Process Window Event");
+        JFrame frame = new JFrame("Closing frame with Window Listener");
         frame.setBounds(50, 50, 600, 400);
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new MyWindowListener());
         frame.setVisible(true);
     }
 }
 
-class MyJFrame extends JFrame {
-    MyJFrame(String title) {
-        this.setTitle(title);
-    }
-
-    protected void processWindowEvent(WindowEvent e) {
-        if(e.getID() == WindowEvent.WINDOW_CLOSING) {
-            System.exit(0);
-        }
+class MyWindowListener extends WindowAdapter {
+    public void windowClosing(WindowEvent e) {
+        System.exit(0);
     }
 }
