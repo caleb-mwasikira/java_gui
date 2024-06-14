@@ -3,42 +3,28 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame frame = new MyJFrame("Closing frame with Window Listener");
-        frame.setBounds(50, 50, 600, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        JFrame frame = new MyJFrame("Working with labels and textfield");
     }
 }
 
 class MyJFrame extends JFrame {
     public MyJFrame(String title) {
         super(title);
-        this.setBounds(50,50, 600, 400);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
+        setVisible(true);
+        setDefaultCloseOperation(MyJFrame.EXIT_ON_CLOSE);
+        setSize(300,800);
 
-        // create a container with layout
-        Container container = getContentPane();
-        container.setBackground(Color.white);
-        FlowLayout flow_layout = new FlowLayout();
-        container.setLayout(flow_layout);
+        Container container= getContentPane();
+        container.setBackground(Color.lightGray);
 
-        // add components to the container
-        JButton[] buttons = {
-                new JButton("Start"),
-                new JButton("Stop"),
-                new JButton("Add"),
-                new JButton("Subtract"),
-                new JButton("Multiply"),
-                new JButton("Modulus"),
-                new JButton("Exit"),
-        };
+        FlowLayout flowLayout=new FlowLayout();
+        container.setLayout(flowLayout);
 
-        for (JButton button : buttons) {
-            container.add(button);
-        }
+        JLabel label=new JLabel("student info");
+        container.add(label);
 
-        this.setContentPane(container);
-        this.setVisible(true);
+        JTextField text=new JTextField("first name",20);
+        container.add(text);
+        setContentPane(container);
     }
 }
