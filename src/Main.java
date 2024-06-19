@@ -1,30 +1,85 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame frame = new MyJFrame("Working with labels and textfield");
+        new MyJFrame("Handling mouse events");
     }
 }
 
-class MyJFrame extends JFrame {
+class MyWindowListener extends WindowAdapter {
+    public void windowClosing(WindowEvent e) {
+        System.out.println("Closing application. Bye :(");
+        System.exit(0);
+    }
+}
+
+class MyJFrame extends JFrame implements MouseListener, MouseMotionListener {
+    String msg = "";
+    Point mousePos = new Point();
+
     public MyJFrame(String title) {
-        super(title);
+        setSize(500, 400);
+        setTitle(title);
+
+        addWindowListener(new MyWindowListener());
+        addMouseListener(this);
+        addMouseMotionListener(this);
+
         setVisible(true);
-        setDefaultCloseOperation(MyJFrame.EXIT_ON_CLOSE);
-        setSize(300,800);
+    }
 
-        Container container= getContentPane();
-        container.setBackground(Color.lightGray);
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        msg = msg + "-- mouse clicked";
+        repaint();
+    }
 
-        FlowLayout flowLayout=new FlowLayout();
-        container.setLayout(flowLayout);
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+        // save the coordinates
+        mousePos = mouseEvent.getPoint();
+        msg = "mouse pressed";
+        repaint();
+    }
 
-        JLabel label=new JLabel("student info");
-        container.add(label);
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+        // save the coordinates
+        mousePos = mouseEvent.getPoint();
+        msg = "mouse released";
+        repaint();
+    }
 
-        JTextField text=new JTextField("first name",20);
-        container.add(text);
-        setContentPane(container);
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+        msg = "mouse entered";
+        repaint();
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+        msg = "mouse exited";
+        repaint();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
+        mousePos = mouseEvent.getPoint();
+        msg = "* mouse dragged X: " + mousePos.x + " Y: " + mousePos.y;
+        repaint();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+        mousePos = mouseEvent.getPoint();
+        msg = "* moving mouse X: " + mousePos.x + " Y: " + mousePos.y;
+        repaint();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        g.drawString(msg, mousePos.x, mousePos.y);
     }
 }
