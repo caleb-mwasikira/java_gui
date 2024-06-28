@@ -4,36 +4,51 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) {
-        new MyJFrame("ScrollPane example");
+        new MyJFrame("Event Handling Example");
     }
 }
 
 class MyJFrame extends JFrame {
     int frameWidth = 500;
     int frameHeight = 400;
+    JLabel myLabel;
 
     MyJFrame(String title) {
         super(title);
         setSize(frameWidth, frameHeight);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.PAGE_AXIS));
 
-        Path iconPath = Paths.get("/home/netrunner/Pictures/profile_pics/wallguy.png");
-        Icon image = new ImageIcon(iconPath.toString());
-        JLabel label = new JLabel(image);
+        myLabel = new JLabel("Hello World");
+        JButton viewButton = new JButton("View");
+        viewButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                myLabel.setVisible(true);
+            }
+        });
 
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.getViewport().add(label);
-        topPanel.add(scrollPane, BorderLayout.CENTER);
+        JButton hideButton = new JButton("Hide");
+        hideButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                myLabel.setVisible(false);
+            }
+        });
 
-        getContentPane().add(topPanel);
+        topPanel.add(myLabel);
+        topPanel.add(viewButton);
+        topPanel.add(hideButton);
+
+        contentPane.add(topPanel, BorderLayout.CENTER);
         setVisible(true);
     }
 }
