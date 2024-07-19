@@ -15,10 +15,11 @@ class MyJframe extends JFrame {
         this.setSize(800, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container contentPane = this.getContentPane();
-        contentPane.setLayout(new GridLayout(3, 3));
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 
-        for(int i=0; i < 9;i++) {
-            JButton btn = new JButton("" + i);
+        // add components
+        for(int i =0; i < 9; i++) {
+            JButton btn = new JButton("Button " + i);
             contentPane.add(btn);
         }
 
