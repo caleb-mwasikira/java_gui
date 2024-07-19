@@ -2,12 +2,10 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Main {
     public static void main(String[] args) {
-        new MyJframe("Event listeners");
+        new MyJframe("Flow Layout Demo");
     }
 }
 
@@ -17,28 +15,17 @@ class MyJframe extends JFrame {
         this.setSize(800, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container contentPane = this.getContentPane();
-        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+        contentPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         // add components
-        Container topPanel = new JPanel();
-        JLabel nameLabel = new JLabel("Enter your name: ");
-        JTextField nameInputField = new JTextField("", 20);
-        topPanel.add(nameLabel);
-        topPanel.add(nameInputField);
-        contentPane.add(topPanel);
+        JLabel label = new JLabel("Enter name: ");
+        JTextField txtField = new JTextField(10);
+        JButton submitBtn = new JButton("SUBMIT");
 
-        topPanel = new JPanel();
-        JButton submitBtn = new JButton("Submit");
-        submitBtn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                String userName = nameInputField.getText();
-                JOptionPane.showMessageDialog(contentPane, "Welcome " + userName);
-            }
-        });
-        topPanel.add(submitBtn);
-        contentPane.add(topPanel);
-
+        contentPane.add(label);
+        contentPane.add(txtField);
+        contentPane.add(submitBtn);
+        
         this.setContentPane(contentPane);
         this.setVisible(true);
     }
