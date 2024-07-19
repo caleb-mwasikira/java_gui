@@ -15,14 +15,12 @@ class MyJframe extends JFrame {
         this.setSize(800, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container contentPane = this.getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        contentPane.setLayout(new GridLayout(3, 3));
 
-        // add components
-        contentPane.add(new JButton("NORTH"), BorderLayout.NORTH);
-        contentPane.add(new JButton("SOUTH"), BorderLayout.SOUTH);
-        contentPane.add(new JButton("EAST"), BorderLayout.EAST);
-        contentPane.add(new JButton("WEST"), BorderLayout.WEST);
-        contentPane.add(new JButton("CENTER"), BorderLayout.CENTER);
+        for(int i=0; i < 9;i++) {
+            JButton btn = new JButton("" + i);
+            contentPane.add(btn);
+        }
 
         this.setContentPane(contentPane);
         this.setVisible(true);
