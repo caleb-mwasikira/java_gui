@@ -7,48 +7,39 @@ import java.awt.event.MouseEvent;
 
 public class Main {
     public static void main(String[] args) {
-        new MyJFrame("Event Handling Example");
+        new MyJframe("Event listeners");
     }
 }
 
-class MyJFrame extends JFrame {
-    int frameWidth = 500;
-    int frameHeight = 400;
-    JLabel myLabel;
-
-    MyJFrame(String title) {
+class MyJframe extends JFrame {
+    public MyJframe(String title) {
         super(title);
-        setSize(frameWidth, frameHeight);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setSize(800, 600);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container contentPane = this.getContentPane();
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        // add components
+        Container topPanel = new JPanel();
+        JLabel nameLabel = new JLabel("Enter your name: ");
+        JTextField nameInputField = new JTextField("", 20);
+        topPanel.add(nameLabel);
+        topPanel.add(nameInputField);
+        contentPane.add(topPanel);
 
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.PAGE_AXIS));
-
-        myLabel = new JLabel("Hello World");
-        JButton viewButton = new JButton("View");
-        viewButton.addMouseListener(new MouseAdapter() {
+        topPanel = new JPanel();
+        JButton submitBtn = new JButton("Submit");
+        submitBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                myLabel.setVisible(true);
+                String userName = nameInputField.getText();
+                JOptionPane.showMessageDialog(contentPane, "Welcome " + userName);
             }
         });
+        topPanel.add(submitBtn);
+        contentPane.add(topPanel);
 
-        JButton hideButton = new JButton("Hide");
-        hideButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                myLabel.setVisible(false);
-            }
-        });
-
-        topPanel.add(myLabel);
-        topPanel.add(viewButton);
-        topPanel.add(hideButton);
-
-        contentPane.add(topPanel, BorderLayout.CENTER);
-        setVisible(true);
+        this.setContentPane(contentPane);
+        this.setVisible(true);
     }
 }
